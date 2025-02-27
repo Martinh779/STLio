@@ -1,30 +1,27 @@
 cmake_minimum_required(VERSION 3.30)
-project(STLio)
+project(STLio LANGUAGES CXX)
 
-# Set the C++ standard
 set(CMAKE_CXX_STANDARD 26)
 
-# Define the include directory
-include_directories(include)
+add_subdirectory(external/Geometry)
+add_subdirectory(external/googletest)
 
-# Define the source files
-set(SOURCES
-        main.cpp
-        src/stlio.cpp
+set(STLIO_SOURCES
         src/stl_model.cpp
-        src/stlio_reader.cpp
-        src/stlio_utils.cpp
-        src/stlio_writer.cpp
+        src/stl_reader.cpp
+        src/stl_writer.cpp
+        src/parsers/parser_binary.cpp
+        src/parsers/parser_ascii.cpp
 )
 
-# Define the header files
-set(HEADERS
-        include/stlio.h
-        include/stlio_reader.h
-        include/stlio_writer.h
-        include/stlio_utils.h
+set(STLIO_HEADERS
         include/stl_model.h
+        include/stl_reader.h
+        include/stl_writer.h
+        src/parsers/parser_binary.h
+        src/parsers/parser_ascii.h
 )
 
-# Add the executable
-add_executable(STLio ${SOURCES} ${HEADERS})
+add_library(stl_io_lib STATIC ${STLIO_SOURCES} ${STLIO_HEADERS})
+target_include_directories(stl_io_lib PUBLIC include)
+target_link_libraries(stl_io_lib PUBLIC Geometry)

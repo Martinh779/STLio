@@ -8,44 +8,43 @@
 
 #include <vector>
 #include <string>
+#include "Face.h"
+
+using std::string;
+using std::vector;
 
 namespace stlio {
-
-    struct Vector3D {
-        double x = 0;
-        double y = 0;
-        double z = 0;
-    };
-
-    struct Triangle {
-        Vector3D v1;
-        Vector3D v2;
-        Vector3D v3;
-    };
-
-    struct Face {
-        Vector3D normal;
-        Triangle triangle;
-    };
 
     class STLModel {
     public:
         STLModel() = default;
 
-        // Getters
-        [[nodiscard]] std::string getName() const { return m_name; }
+        STLModel(const string &filepath);
 
-        [[nodiscard]] std::vector<Face> getFaces() const { return m_faces; }
+        // Getters
+        [[nodiscard]] string getName() const { return m_name; }
+
+        [[nodiscard]] vector<geometry::Face>& getFaces() { return m_faces; }
 
         // Setters
-        void setName(const std::string &name) { m_name = name; }
+        void setName(const string &name) { m_name = name; }
 
+        void setFaces(const vector<geometry::Face> &faces) { m_faces = faces; }
 
-        void addFace(Face face);
+        // Add face
+        void addFace(geometry::Face face) { m_faces.push_back(face); }
+
+        // Remove face by index
+        void removeFace(int index) { m_faces.erase(m_faces.begin() + index); }
+
+        [[nodiscard]] string toString() const;
+
+        // Write to file
+        void writeToFile(const string &filename, bool binary = false) const;
 
     private:
-        std::string m_name;
-        std::vector<Face> m_faces;
+        string m_name;
+        vector<geometry::Face> m_faces;
     };
 
 } // namespace stlio

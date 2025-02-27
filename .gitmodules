@@ -1,0 +1,6 @@
+[submodule "external/Geometry"]
+	path = external/Geometry
+	url = https://github.com/Martinh779/Geometry
+[submodule "external/googletest"]
+	path = external/googletest
+	url = https://github.com/google/googletest
