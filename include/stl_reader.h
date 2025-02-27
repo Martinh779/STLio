@@ -16,9 +16,6 @@ namespace stlio {
 
     public:
         static STLModel read(const std::string &filename);
-
-    private:
-        static stlio::Vector3D getVector3DFromLine(int numberOfSkips, std::istringstream &iss);
     };
 
 } // namespace stlio

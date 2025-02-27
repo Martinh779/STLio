@@ -13,14 +13,9 @@ namespace stlio {
 
     class STLWriter {
     public:
-        static void write(const std::string &filename, const stlio::STLModel &stl_model);
+        static void writeToASCII(const std::string &filename, const STLModel &stlModel);
 
-    private:
-        static std::string buildStringFromSTLModel(const stlio::STLModel &stl_model);
-
-        static std::string vector3DToString(const stlio::Vector3D &v);
-
-        static std::string triangleToSTLString(const stlio::Triangle &t);
+        static void writeToBinary(const std::string &filename, const STLModel &stlModel);
     };
 
 }
